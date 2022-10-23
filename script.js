@@ -1,7 +1,5 @@
 
 const gameBoard = (() => {
-    const goal = (string = "Hello") => "fuckyou" + string;
-
     //Turn counter that is global within the object.
     let turn = 1
 
@@ -22,8 +20,13 @@ const gameBoard = (() => {
         turn++;
 
         //REMEMBER TO FIX THIS
-        test = checkWinner()
-    }
+        winner = checkWinner()
+        if (test === "XXX" || test === "OOO") {
+      setTimeout(() => {
+        restart()
+      }, 1000);
+
+    }}
 
     const checkWinner = () => {
         let grid = document.querySelectorAll(".box")
@@ -34,24 +37,26 @@ const gameBoard = (() => {
         for (let i = 0; i < 9; i++) {
             checker += grid[i].getAttribute("Value")
             if (i === 2 && checker === "XXX" || checker === "OOO") {
-                console.log("winner")
-                break   
+                return (checker)
+                break
+
             }
-            if (i === 2)  {
+            if (i === 2) {
                 checker = ""
             }
             if (i === 5 && checker === "XXX" || checker === "OOO") {
-                console.log("winner")
+                return checker
                 break
+
             }
 
             if (i === 5) {
-                checker = "" 
+                checker = ""
             }
 
             else if (i === 8 && checker === "XXX" || checker === "OOO") {
-                console.log("winner")
-                return restart()
+                return checker
+                break
 
             }
         }
@@ -60,7 +65,7 @@ const gameBoard = (() => {
 
         //     console.log(i)
         //     checker += grid[i].getAttribute("Value")
-        
+
 
         // }
 
