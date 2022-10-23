@@ -79,6 +79,7 @@ const gameBoard = (() => {
     //End game function
     const endGame = (draw) => {
         let winner = ""
+        let winnerText = document.createElement("div")
         if (turn % 2 === 0) {
             winner = "X"
         }
@@ -100,10 +101,18 @@ const gameBoard = (() => {
         grid = document.querySelector(".grid")
         grid.classList.add("hide")
 
+
         //Winner text
-        let winnerText = document.createElement("div")
-        winnerText.innerText = `Winner is ${winner}!`
+        if (winner === "draw") {
+            winnerText.innerText = `It's a draw!`
+        }
+
+        else (
+            winnerText.innerText = `Winner is ${winner}!`
+        )
         endGameInterface.appendChild(winnerText)
+
+
 
         //EndGame Button
         let restartButton = document.createElement("button")
