@@ -1,9 +1,43 @@
 body {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  gap: 10%;
+}
+h1 {
+  position: absolute;
+  top: 0;
+}
+
+.restartButton {
+  cursor: pointer;
+  width: 200px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  border: solid 1px rgb(44, 139, 255);
+  background-color: rgb(44, 139, 255);
+  color: white;
+
+  font-weight: bold;
+}
+
+.restartButton:hover {
+  background-color: rgba(0, 0, 0, 0.052);
+}
+
+.endGameButton {
+  cursor: pointer;
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  border: solid 1px rgb(44, 139, 255);
+  background-color: rgb(44, 139, 255);
+  color: white;
+  font-weight: bold;
 }
 
 .grid {
@@ -13,31 +47,32 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   justify-items: stretch;
-  
 }
 
-.grid > *:hover{
-    background-color: rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+.hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: 2s;
+}
+
+.grid > *:hover {
+  cursor: pointer;
 }
 
 .box {
   width: 100%;
   height: 100%%;
-
 }
-.boxAnimated{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 5em;
-    transition: 0.3s;
+.boxAnimated {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8em;
+  transition: 0.3s;
 }
 
-.boxAnimated:hover{
-background-color: rgba(255, 255, 255, 0);
-cursor:auto;
-
+.boxAnimated:hover {
+  cursor: auto;
 }
 
 #box2,
@@ -59,4 +94,29 @@ cursor:auto;
   border-bottom: solid black 2px;
 }
 
+.endGameInterface {
+  visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 70%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  font-size: 4rem;
+  gap: 10%;
+  opacity: 0;
+}
 
+.show {
+  transition: 2s;
+  visibility: visible;
+  background-color: rgb(255, 255, 255);
+  opacity: 1;
+}
+
+.endGameInterface > * {
+  transition: 1s;
+}
