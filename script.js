@@ -1,5 +1,7 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-use-before-define */
 const gameBoard = (() => {
-  //Turn counter that is global within the object.
+  // Turn counter that is global within the object.
   let turn = 1;
   const winCombos = [
     [0, 1, 2],
@@ -12,123 +14,121 @@ const gameBoard = (() => {
     [2, 4, 6],
   ];
 
-  //The logic that handles the interaction with the game
+  // The logic that handles the interaction with the game
   const GameFieldInteraction = (e) => {
-    let box = e.target;
-    box.removeEventListener("click", GameFieldInteraction);
-    box.classList.add("boxAnimated");
+    const box = e.target;
+    box.removeEventListener('click', GameFieldInteraction);
+    box.classList.add('boxAnimated');
     if (turn % 2 === 1) {
-      box.innerText = "X";
-      box.classList.add("X");
+      box.innerText = 'X';
+      box.classList.add('X');
     } else {
-      box.innerHTML = "O";
-      box.classList.add("O");
+      box.innerHTML = 'O';
+      box.classList.add('O');
     }
-    turn++;
+    turn += 1;
 
-    //Checks if there is a winner
-    winner = checkWinner();
+    // Checks if there is a winner
+    const winner = checkWinner();
     if (winner === true) {
       return endGame(false);
-    } else if (turn > 9 && winner === false) {
+    }
+    if (turn > 9 && winner === false) {
       return endGame(true);
     }
   };
 
-  //Checkes the winner of the game
+  // Checkes the winner of the game
   const checkWinner = () => {
-    let grid = document.querySelectorAll(".box");
-    return winCombos.some((combination) => {
-      return combination.every((index) => {
-        if (turn % 2 === 0) {
-          return grid[index].classList.contains("X");
-        } else {
-          return grid[index].classList.contains("O");
-        }
-      });
-    });
+    const grid = document.querySelectorAll('.box');
+    return winCombos.some((combination) => combination.every((index) => {
+      if (turn % 2 === 0) {
+        return grid[index].classList.contains('X');
+      }
+      return grid[index].classList.contains('O');
+    }));
   };
-  //Creates the gameboard, self-running function
+  // Creates the gameboard, self-running function
   const boardCreation = () => {
-    const grid = document.querySelector(".grid");
-    for (let i = 1; i < 10; i++) {
-      let box = document.createElement("div");
+    const grid = document.querySelector('.grid');
+    for (let i = 1; i < 10; i += 1) {
+      const box = document.createElement('div');
       box.id = `box${i}`;
-      box.classList = "box";
+      box.classList = 'box';
       grid.appendChild(box);
 
-      //Eventlistener calling another function within this object
-      box.addEventListener("click", GameFieldInteraction);
+      // Eventlistener calling another function within this object
+      box.addEventListener('click', GameFieldInteraction);
     }
 
-    //Creates the restart button for the gameboard
-    let restartButton = document.createElement("button");
-    restartButton.classList.add("restartButton");
-    restartButton.innerText = "Restart Game";
-    restartButton.addEventListener("click", restart);
+    // Creates the restart button for the gameboard
+    const restartButton = document.createElement('button');
+    restartButton.classList.add('restartButton');
+    restartButton.innerText = 'Restart Game';
+    restartButton.addEventListener('click', restart);
     document.body.appendChild(restartButton);
   };
 
-  //End game function
+  // End game function
   const endGame = (draw) => {
-    let winner = "";
-    let winnerText = document.createElement("div");
+    let winner = '';
+    const winnerText = document.createElement('div');
     if (turn % 2 === 0) {
-      winner = "X";
+      winner = 'X';
     }
 
     if (turn % 2 === 1) {
-      winner = "O";
+      winner = 'O';
     }
 
     if (draw === true) {
-      winner = "draw";
+      winner = 'draw';
     }
 
     // End game interface
-    let endGameInterface = document.querySelector(".endGameInterface");
-    endGameInterface.classList.add("show");
-    oldRestartButton = document.querySelector("button");
-    oldRestartButton.classList.add("hide");
-    grid = document.querySelector(".grid");
-    grid.classList.add("hide");
+    const endGameInterface = document.querySelector('.endGameInterface');
+    endGameInterface.classList.add('show');
+    const oldRestartButton = document.querySelector('button');
+    oldRestartButton.classList.add('hide');
+    const grid = document.querySelector('.grid');
+    grid.classList.add('hide');
 
-    //Winner text
-    if (winner === "draw") {
-      winnerText.innerText = `It's a draw!`;
+    // Winner text
+    if (winner === 'draw') {
+      winnerText.innerText = "It's a draw!";
     } else winnerText.innerText = `Winner is ${winner}!`;
     endGameInterface.appendChild(winnerText);
 
-    //EndGame Button
-    let restartButton = document.createElement("button");
-    restartButton.classList.add("endGameButton");
-    restartButton.innerText = "Play Again!";
-    restartButton.addEventListener("click", () => {
+    // EndGame Button
+    const restartButton = document.createElement('button');
+    restartButton.classList.add('endGameButton');
+    restartButton.innerText = 'Play Again!';
+    restartButton.addEventListener('click', () => {
       winnerText.remove();
       restartButton.remove();
-      endGameInterface.classList.remove("show");
-      grid.classList.remove("hide");
+      endGameInterface.classList.remove('show');
+      grid.classList.remove('hide');
       restart();
     });
     endGameInterface.appendChild(restartButton);
   };
-  //Restarts the game
-  const restart = (e) => {
-    //Removes the restart button
-    let restartButton = document.querySelector(".restartButton");
+  // Restarts the game
+  const restart = () => {
+    // Removes the restart button
+    const restartButton = document.querySelector('.restartButton');
     restartButton.remove();
-    //Gets all the game boxes
-    const grid = document.querySelectorAll(".box");
+    // Gets all the game boxes
+    const grid = document.querySelectorAll('.box');
     grid.forEach((node) => {
       node.remove();
     });
-    //Sets turn to 1
+    // Sets turn to 1
     turn = 1;
-    //Creates new board
+    // Creates new board
     boardCreation();
   };
 
-  return { restart: restart, createBoard: boardCreation };
+  return { restart, createBoard: boardCreation };
 })();
 
 gameBoard.createBoard();
